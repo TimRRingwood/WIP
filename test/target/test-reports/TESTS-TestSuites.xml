@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites>
+  <testsuite errors="0" failures="1" hostname="RCR-CNU348B89X" id="0" name="TestControllerSpec" package="test" tests="1" time="8.868" timestamp="2015-10-07T13:23:36">
+      <properties />
+
+      <testcase classname="test.TestControllerSpec" name="test test" time="8.794">
+          <failure message="Condition not satisfied:&#xa;&#xa;response.text == &apos;Test this&apos;&#xa;|        |    |&#xa;|        &quot;&quot;   false&#xa;|             9 differences (0% similarity)&#xa;|             (---------)&#xa;|             (Test this)&#xa;org.codehaus.groovy.grails.plugins.testing.GrailsMockHttpServletResponse@56266bda&#xa;" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: Condition not satisfied:
+
+response.text == &apos;Test this&apos;
+|        |    |
+|        &quot;&quot;   false
+|             9 differences (0% similarity)
+|             (---------)
+|             (Test this)
+org.codehaus.groovy.grails.plugins.testing.GrailsMockHttpServletResponse@56266bda
+
+	at test.TestControllerSpec.test test(TestControllerSpec.groovy:26)
+</failure>
+
+      </testcase>
+
+      <system-out><![CDATA[--Output from test test--
+index2...
+]]></system-out>
+
+      <system-err><![CDATA[--Output from test test--
+]]></system-err>
+
+  </testsuite>
+</testsuites>

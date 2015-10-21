@@ -1,0 +1,23 @@
+<html>
+<head>
+  <script type="text/javascript">
+  var onloadCallback = function() {
+//alert("Y");
+    grecaptcha.render('html_element', <recaptcha:renderParameters theme="light" type="audio" tabindex="2"/>);
+  };
+</script>
+</head>
+<body>
+<g:form action="recap2" method="post">
+
+
+    
+  <recaptcha:ifEnabled>
+    <recaptcha:recaptchaExplicit loadCallback="onloadCallback"/>
+    <div id="html_element"></div>
+  </recaptcha:ifEnabled>
+  <br/>
+  <g:submitButton name="submit"/>
+</g:form>
+</body>
+</html>

@@ -1,0 +1,2 @@
+test.BuildContactNameCommand.firstName.blank=First Name Is Required
+test.BuildContactNameCommand.firstName.nullable=First Name Is Required
