@@ -77,6 +77,8 @@
                 <g:renderErrors bean="${command}" as="list" />
             </div>
         </g:hasErrors>
+        
+        Generated Password For You Is: ${pwd}
         <g:form action="build">
    
         <input type="hidden" id="userId" name="userId" value="${user.id}" />

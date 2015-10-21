@@ -29,14 +29,7 @@
                         </td>
                     </tr>
       
-                    <tr class="prop">
-                        <td valign="top" class="name">
-                            <label for="password">Password:</label>
-                        </td>
-                        <td valign="top">
-                            <input type="text" id="password" name="password"  />
-                        </td>
-                    </tr>
+                  
                 </tbody>
                 </table>
             </div>

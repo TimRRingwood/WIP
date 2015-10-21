@@ -37,9 +37,9 @@ class InfoUsersController {
 		
 			}.to("login") 
 			on("create") {
-				GenCommand command ->
+				//GenCommand command ->
 				
-				    def roles = Role.findAll()
+				    //def roles = Role.findAll()
 					//println "Roles " + roles
 					//bindData(flow.roles, roles)
 					//[roles: roles]
@@ -57,13 +57,22 @@ class InfoUsersController {
 					flow.command = command
 					return error()
 				}
-				println "create";
-				def newUser = loginService.createNewUser(params.username, params.password)
-	            println "new user: " + newUser
+				String pwd = loginService.getPassword() 
+				println "PWD: " + pwd
+				def newUser = loginService.createNewUser(params.username, pwd)
+				newUser.password = pwd
+				def info = newUser.infoUsers;
+				
+				if (info == null) {
+					info = new InfoUsers()
+				}
+				[user: newUser, info: info, pwd: pwd]
+				
+	            //println "new user: " + newUser
 
 				//bindData(flow.user, newUser)
-				//[user: flow.user]
-			}.to('login')
+				//[pwd: pwd]
+			}.to('pieinfo')
 			on('cancel').to('slash')
 			on(Exception).to("error")
 		}
@@ -76,12 +85,12 @@ class InfoUsersController {
 					return error();
 				}
 				
-				// Verify Recaptcha was right
-				//if (!recaptchaService.verifyAnswer(session, request.getRemoteAddr(), params)) {
-				//	loginService.upIPFailureCount(ipAddress);
-				//	flash.message = "Show you are human"
-				//	return error()
-				//}
+				//Verify Recaptcha was right
+				if (!recaptchaService.verifyAnswer(session, request.getRemoteAddr(), params)) {
+					loginService.upIPFailureCount(ipAddress);
+					flash.message = "Show you are human"
+					return error()
+				}
 				recaptchaService.cleanUp(session)
 				
 				if (command.hasErrors()) {
@@ -163,7 +172,7 @@ class InfoUsersController {
 				println "INFO: " + info
 				//bindData(flow.info, command)
                 [info: info]
-            }.to('address')
+            }.to('pieinfo')
             on('cancel').to('finish')
         }
         address { 
@@ -208,12 +217,12 @@ class BuildInfoUsersNameCommand implements Serializable {
 class LoginCommand implements Serializable {
 	
 	String username
-	String password
-	LoginInfo user
+	//String password
+	//LoginInfo user
 	
 	static constraints = {
 		username(blank:false, nullable:false, maxSize: 50)
-		password(blank:false, nullable:false, maxSize: 50)
+		//password(blank:false, nullable:false, maxSize: 50)
 	}
 
 }
