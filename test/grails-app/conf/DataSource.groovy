@@ -1,4 +1,4 @@
-dataSource {
+/*dataSource {
 	pooled = true
 	driverClassName = "oracle.jdbc.driver.OracleDriver"
 	username = "system"
@@ -43,6 +43,35 @@ production {
 //	username = "root"
 //	password = "root"
 //}
+ * 
+ */
+
+ dataSource {
+	 pooled = false
+	 driverClassName = "org.h2.Driver"
+	 username = "sa"
+	 password = ""
+ }
+ environments {
+	 development {
+		 dataSource {
+			 dbCreate = "update"
+			 url = "jdbc:h2:~/test/app_data;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+		 }
+	 }
+	 test {
+		 dataSource {
+			 dbCreate = "update"
+			 url = "jdbc:h2:~/test/app_data;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+		 }
+	 }
+	 production {
+		 dataSource {
+			 dbCreate = "update"
+			 url = "jdbc:h2:~/test/app_data;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+		 }
+	 }
+ }
 hibernate {
 	cache.use_second_level_cache = true
 	cache.use_query_cache = false

@@ -64,13 +64,16 @@ class LoginService {
 		login.save(flush: true)
 	}
 
-	def void resetFailures(LoginInfo login, String ipAddress) {
-		ipTracker.remove(ipAddress)
+	def void resetFailureAttmpts(LoginInfo login) {
 		if (login.failedAttempts != null && login.failedAttempts > 0) {
 			login.failedAttempts = 0
 			login.accountLocked = false
 			login.save(flush: true)
 		}
+	}
+	def void resetFailures(LoginInfo login, String ipAddress) {
+		ipTracker.remove(ipAddress)
+		resetFailureAttmpts(login);
 	}
 
 	def String getPassword() {

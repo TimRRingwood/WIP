@@ -43,7 +43,7 @@ class LoginInfo implements Serializable {
 	}
 
 	Set<Role> getAuthorities() {
-		UserRole.findAllByUser(this)*.role
+		LoginInfoRole.findAllByUser(this)*.role
 	}
 
 	def beforeInsert() {

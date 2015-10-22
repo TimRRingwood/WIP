@@ -119,12 +119,13 @@ log4j = {
 
 
 // Added by the Spring Security Core plugin:
-grails.gorm.failOnError = true
+//grails.gorm.failOnError = true
 grails.gorm.default.constraints = { '*' nullable: true }
 grails.plugin.springsecurity.rejectIfNoRule = false
 grails.plugin.springsecurity.fii.rejectPublicInvocations = false
-grails.plugin.springsecurity.userLookup.userDomainClassName = 'test.User'
-grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'test.UserRole'
+//grails.plugin.springsecurity.auth.loginFormUrl = '/infoUsers/build'
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'test.LoginInfo'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'test.LoginInfoRole'
 grails.plugin.springsecurity.authority.className = 'test.Role'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                ['permitAll'],
@@ -145,11 +146,6 @@ grails.plugin.springsecurity.onAbstractAuthenticationFailureEvent = { e, appCtx 
 	// example of how to obtain the session if you need it
 	def request = grails.plugin.springsecurity.web.SecurityRequestHolder.getRequest()
 	def session = request.getSession(false)
-	println "failure"
-}
-bruteforcedefender {
-	time = 2
-	allowedNumberOfAttempts = 3
 }
 
 login {
