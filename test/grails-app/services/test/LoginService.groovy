@@ -1,6 +1,13 @@
 package test
 
+import grails.plugin.springsecurity.SpringSecurityService;
 import grails.transaction.Transactional
+import javax.servlet.http.HttpServletRequest
+import org.codehaus.groovy.grails.commons.GrailsApplication
+import org.codehaus.groovy.grails.web.util.WebUtils
+
+
+
 
 class LoginService {
 	private static transactional = false
@@ -10,16 +17,30 @@ class LoginService {
 	private static def numbers = ['0'..'9'].flatten()
 	private static def specialChars = ['^', '#', '*', '!', ':', '\$'].flatten()
 	def grailsApplication
-
+	def maxFailures = -1;
+	SpringSecurityService springSecurityService
+	
 	def int getMaxUserFailure() {
-		return grailsApplication.config.login.maxUserFailedAttempts
+		if (maxFailures < 1) {
+		//grailsApplication = ApplicationHolder.application
+		//println "GA: " + grailsApplication
+		 maxFailures = grailsApplication.config.bruteforcedefender.allowedNumberOfAttempts
+		}
+		return maxFailures
 	}
 
 	def int getMaxIPFailure() {
 		return grailsApplication.config.login.maxIPFailedAttempts
 	}
 
-
+    def void handleFailure(HttpServletRequest req, int fc) {
+		maxFailures = fc
+		def params = req.parameterMap
+		//def ipAddress = params.ipAddress;
+		String username = req.getParameter("j_username");
+		def login = getUserLogin(username)
+		upUserFailureCount(login)
+	}
 	def LoginInfo createNewUser(String username, String password) {
 		InfoUsers info = new InfoUsers()
 
@@ -41,9 +62,6 @@ class LoginService {
 		if (user != null && user.failedAttempts > getMaxUserFailure()) {
 			user.accountLocked = true
 		}
-		else {
-			user.accountLocked = false
-		}
 		return user
 	}
 
@@ -56,12 +74,17 @@ class LoginService {
 	}
 
 	def void upUserFailureCount(LoginInfo login) {
-		Integer failureCt =  login.failedAttempts
-		if (failureCt == null) {
-			failureCt = 0;
+		if (login != null) {
+			Integer failureCt =  login.failedAttempts
+			if (failureCt == null) {
+				failureCt = 0;
+			}
+			login.failedAttempts = ++failureCt
+			if (failureCt >= getMaxUserFailure()) {
+				login.accountLocked = true
+			}
+			login.save(flush: true)
 		}
-		login.failedAttempts = ++failureCt
-		login.save(flush: true)
 	}
 
 	def void resetFailureAttmpts(LoginInfo login) {

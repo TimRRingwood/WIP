@@ -1,0 +1,7 @@
+I just updated my Git Hub project with some changes:
+
+I removed the use of my custom login page and put one in views/login/auth.gsp
+
+That is where the default page for Spring Security lives and to overide you just need to put your version there.  
+
+ZZ

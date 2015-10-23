@@ -94,6 +94,7 @@
 		</g:if>
 
 		<form action='${postUrl}' method='POST' id='loginForm' class='cssform' autocomplete='off'>
+		 <input type="hidden" value="${java.net.InetAddress.getLocalHost().getHostAddress()}" name="ipAddress" id="ipAddress"/>
 			<p>
 				<label for='username'><g:message code="springSecurity.login.username.label"/>:</label>
 				<input type='text' class='text_' name='j_username' id='username'/>

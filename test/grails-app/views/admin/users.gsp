@@ -14,6 +14,7 @@
 <th>First Name</th>
 <th>Last Name</th>
 <th>Failed Attempts</th>
+<th>Account Locked</th>
 </thead>
  <g:each var="user" in="${users}">
         <tr>
@@ -28,6 +29,9 @@
             </td>
             <td>
                 ${user.failedAttempts}
+            </td>
+            <td>
+                ${user.accountLocked}
             </td>
             <td>
               <a href="resetLogin?username=${user.username}">Reset</a>

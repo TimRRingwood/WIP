@@ -8,7 +8,6 @@ class AdminController {
 	@Secured('ROLE_ADMIN')
     def users() {	
 		def users = getUserList()
-		println "Users: " + users
 		['users' : users]
 	}
 	
@@ -16,8 +15,7 @@ class AdminController {
 	def resetLogin() {
 		def login = loginService.getUserLogin(params.username)
 		loginService.resetFailureAttmpts(login)
-		def users = getUserList()
-		render(view: "users",  model: ['users': users])
+		redirect action: 'users'
 	}
 	
 	private def getUserList() {

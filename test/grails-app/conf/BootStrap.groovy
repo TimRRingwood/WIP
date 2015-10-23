@@ -19,7 +19,7 @@ class BootStrap {
 
 			  def adminUser = LoginInfo.findByUsername('admin');
 			  if  (adminUser == null) {
-				  adminUser = loginService.createNewUser('admin', 'pwd');
+				  adminUser = loginService.createNewUser('', 'pwd');
 				  //adminUser = new LoginInfo('su', 'pwd').save()
 				  LoginInfoRole ur = new LoginInfoRole(adminUser, adminRole);
 				  ur.save(flush: true)

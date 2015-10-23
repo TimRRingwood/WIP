@@ -77,8 +77,9 @@
                 <g:renderErrors bean="${command}" as="list" />
             </div>
         </g:hasErrors>
-        
-        Generated Password For You Is: ${pwd}
+        <g:if test="${pwd != null}">
+            Generated Password For You Is: ${pwd}
+        </g:if>
         <g:form action="build">
    
         <input type="hidden" id="userId" name="userId" value="${user.id}" />
@@ -1354,7 +1355,7 @@
 </table>
             <div class="buttons">
                 <span class="button">
-                    <g:submitButton  role="button" class="ui-button ui-widget ui-state-default ui-corner-all" name="next" value="Next" />
+                    <g:submitButton  role="button" class="ui-button ui-widget ui-state-default ui-corner-all" name="save" value="Save" />
                     <g:submitButton class="cancel" name="cancel" value="Cancel" />
                 </span>
             </div>

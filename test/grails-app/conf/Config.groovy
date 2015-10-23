@@ -1,3 +1,6 @@
+import javax.servlet.http.HttpServletRequest
+import test.LoginService;
+
 // locations to search for config files that get merged into the main config;
 // config files can be ConfigSlurper scripts, Java properties files, or classes
 // in the classpath in ConfigSlurper format
@@ -116,14 +119,31 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 
+bruteforcedefender {
+	time = 2
+	allowedNumberOfAttempts = 3
+}
 
+login {
+
+	maxIPFailedAttempts = 6
+} {
+	time = 2
+	allowedNumberOfAttempts = 3
+}
+
+login {
+
+	maxIPFailedAttempts = 6
+}
 
 // Added by the Spring Security Core plugin:
 //grails.gorm.failOnError = true
 grails.gorm.default.constraints = { '*' nullable: true }
 grails.plugin.springsecurity.rejectIfNoRule = false
 grails.plugin.springsecurity.fii.rejectPublicInvocations = false
-//grails.plugin.springsecurity.auth.loginFormUrl = '/infoUsers/build'
+//grails.plugin.springsecurity.auth.loginFormUrl = '/infoUsers/buildire
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/infoUsers/build'
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'test.LoginInfo'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'test.LoginInfoRole'
 grails.plugin.springsecurity.authority.className = 'test.Role'
@@ -139,19 +159,21 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 ]
 grails.plugin.springsecurity.useSecurityEventListener = true
 grails.plugin.springsecurity.onInteractiveAuthenticationSuccessEvent = { e, appCtx ->
-	// Handle successful login
+	//def request = grails.plugin.springsecurity.web.SecurityRequestHolder.getRequest()
+	//def response = grails.plugin.springsecurity.web.SecurityRequestHolder.getResponse()
+	//def session = request.getSession(false)
+	//response.sendRedirect("http://www.cnn.com")
 }
 grails.plugin.springsecurity.onAbstractAuthenticationFailureEvent = { e, appCtx ->
 	// Handle failed login
 	// example of how to obtain the session if you need it
-	def request = grails.plugin.springsecurity.web.SecurityRequestHolder.getRequest()
-	def session = request.getSession(false)
+	HttpServletRequest request = grails.plugin.springsecurity.web.SecurityRequestHolder.getRequest()
+	//def session = request.getSession(false)
+	LoginService loginService = new LoginService()
+	loginService.handleFailure(request, bruteforcedefender.allowedNumberOfAttempts);
 }
 
-login {
-	maxUserFailedAttempts = 5
-	maxIPFailedAttempts = 6
-}
+
 
 plugins {
 	h2 {

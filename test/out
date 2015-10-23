@@ -1,0 +1,26 @@
+|Loading Grails 2.4.4
+|Configuring classpath
+.
+|Environment set to development
+.................................
+|Packaging Grails application
+....
+|Compiling 222 source files
+Note: C:\workspace\test\target\work\plugins\webflow-2.1.1-SNAPSHOT\src\groovy\org\codehaus\groovy\grails\webflow\persistence\SessionAwareHibernateFlowExecutionListener.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+.......
+|Compiling 17 source files
+....................................
+|Running Grails application
+Configuring Spring Security Core ...
+... finished configuring Spring Security Core
+LS: test.LoginService@68470ed8
+|Server running. Browse to http://localhost:8080/test
+.... enter action 
+ enter success
+ suc 2 : admin
+ pie info auth action
+Error |
+Forked Grails VM exited with error
+Terminate batch job (Y/N)? 
+Terminate batch job (Y/N)? 
