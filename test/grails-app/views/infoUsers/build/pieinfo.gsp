@@ -3,7 +3,7 @@
     <meta http-equiv="Content-Type"
     content="text/html; charset=UTF-8"/>
     <meta name="layout" content="hpc" />
-    <title>PIE Info</title>
+    <title>PIE - New User</title>
     
 
          
@@ -68,7 +68,7 @@
 </head>
 <body>
     <div class="body">
-        <h1>PIE INFO</h1>
+        <h1>Portal to the Information Environment</h1>
         <g:if test="${message}">
             <div class="message">${message}</div>
         </g:if>
@@ -85,24 +85,145 @@
         <input type="hidden" id="userId" name="userId" value="${user.id}" />
         <input type="hidden" id="hidCitizen1" name="hidCitizen1" value="${info.citizen1}" />
         <input type="hidden" id="hidCitizen2" name="hidCitizen2" value="${info.citizen2}" />
-                   
-            <div class="dialog">
-                <table>
-                <tbody>
-                     <tr class="required">
-	                   <td colspan="2">
-	                     Items highlighted in blue are mandatory information
-	                   </td>
-	                </tr>
-	                
-<tr class="required">
-    <td>
         
+        <table class="mainTable">
+         <tr>
+        <td scope="row" class="center-row">Required fields are highlighted in <span class="requiredField">blue</span> and marked with <span class="requiredAsterisk">**</span>.</td>
+        </tr>
+        <tr>
+        <td colspan="2" scope="row" class="grey-bar">Identity </td>
+        </tr>
+        <tr>
+        <td>
+        <table class="innerTable">
+        <tr>
+          <td colspan="2" class="rowTitle">Title/Rank
+              <br/>
+        <select name="surTitle"><option selected="selected" value="">Select Title</option>
+            <option value="Mr.">Mr.</option>
+<option value="Mrs.">Mrs.</option>
+<option value="Miss">Miss</option>
+<option value="Ms.">Ms.</option>
+<option value="Dr.">Dr.</option>
+<option value="Prof.">Prof.</option>
+<option value="SPC">SPC (Specialist)</option>
+<option value="CPL">CPL (Corporal)</option>
+<option value="SGT">SGT (Sergeant)</option>
+<option value="SSG">SSG (Staff Sergeant)</option>
+<option value="TSGT">TSGT (Technical Sergeant)</option>
+<option value="SFC">SFC (Sergeant First Class)</option>
+<option value="MSG">MSG (Master Sergeant)</option>
+<option value="2LT">2LT (Second Lieutenant)</option>
+<option value="1LT">1LT (First Lieutenant)</option>
+<option value="CAPT">CAPT (Captain)</option>
+<option value="MAJ">MAJ (Major)</option>
+<option value="LTC">LTC (Lieutenant Colonel)</option>
+<option value="COL">COL (Colonel)</option>
+<option value="LT">LT (Lieutenant)</option>
+<option value="LCDR">LCDR (Lieutenant Commander)</option>
+<option value="CDR">CDR (Commander)</option>
+<option value="ENS">ENS (Ensign)</option>
+<option value="MIDN">MIDN (Midshipman)</option>
+<option value="CDT">CDT (Cadet)</option></select>
+    </td>
+        <td class="rowTitle" id="leftBorder" rowspan="6">
         
-        
-        Citizenship:
+        Nickname:
     </td>
     <td>
+        <input name="nickname" type="text" value="${info.nickname}" >
+    </td>
+        </tr>
+        
+        <tr>
+        <td class="rowTitle">Legal Name</td>
+        </tr>
+
+<tr>
+    <td class="rowTitle">
+        
+        &nbsp; First<span class="requiredAsterisk"> **</span>
+    </td>
+    <td class="rowTitle">
+        <input class="requiredField" name="firstname" id="firstname" value="${info.firstname}"  size="50" type="text"/>
+    </td>
+</tr>
+<tr>
+    <td class="rowTitle">
+        
+        &nbsp; Middle
+    </td>
+    <td>
+        <input name="middlename"  id="middlename" value="${info.middlename}"  size="50" type="text"/>
+    </td>
+</tr>
+<tr>
+    <td class="rowTitle">
+        
+        &nbsp; Last<span class="requiredAsterisk"> **</span>
+    </td>
+    <td>
+           <input class="requiredField" name="lastname"  id="lastname" value="${info.lastname}"  size="50" type="text"/>
+    </td>
+</tr>
+<tr>
+    <td class="rowTitle">
+        &nbsp; Suffix:
+    </td>
+    <td>
+        <select name="suffix"><option selected="selected" value="">Select Suffix</option>
+            <option value="Jr.">Jr.</option>
+<option value="Sr.">Sr.</option>
+<option value="I">I</option>
+<option value="II">II</option>
+<option value="III">III</option>
+<option value="IV">IV</option>
+<option value="V">V</option></select>
+    </td>
+</tr>
+        
+        </table>
+        
+        </td>
+        </tr>
+          <tr>
+        <td colspan="2" scope="row" class="grey-bar">Role/Position </td>
+        </tr>
+        <tr>
+        <td>
+        <table class="innerTable">
+        <tr>
+        <td class="rowTitle">Position/Role<br/>
+           <input name="position" id="position" value="${info.position}"  size="50" type="text"/>
+        </td>
+        <td class="rowTitle">
+           Government Employee <span class="requiredAsterisk"> **</span>
+        </td>
+        <td class="requiredField">
+        <g:radioGroup name="isGovEmp" value="${info.isGovEmp}" id="isGovEmp"
+        labels="['Yes','No']"
+        values="['true','false']">
+		    <label>
+		            <span class="radioSpan">${it.radio}</span>
+		            ${it.label}
+		    </label>
+         </g:radioGroup>
+
+        </td>
+        
+        </tr>
+        </table>
+        
+        </td>
+        </tr>
+            <tr>
+        <td colspan="2" scope="row" class="grey-bar">Citizenship </td>
+        </tr>
+        <tr>
+        <td>
+        <table class="innerTable">
+        <tr>
+            <td>
         
             <select name="citizen1" onchange="changeCitizenship(this.value);" id="citizen1"><option selected="selected" value="">Select Citizenship</option>
                 <option value="1">United States</option>
@@ -363,7 +484,7 @@
         
         
         
-        <label><input name="dualCitizen" value="1" id="dualCitizen" type="checkbox">Dual Citizenship?</label>
+
         <div class="hidden" id="2Citizen"> <select name="citizen2" onchange="changeCitizenship(this.value);" id="citizen2"><option value="0" selected="selected">Select 2nd Country</option>
             <option value="1">United States</option>
 <option value="2">United States Minor Outlying Islands</option>
@@ -621,76 +742,141 @@
 <option value="252">Zambia</option>
 <option value="253">Zimbabwe</option></select> </div>
     </td>
+    <td class="rowTitle">
+          <input name="dualCitizen" value="1" id="dualCitizen" type="checkbox">Dual Citizenship?
+     <td>
 </tr>
-
-    
-
-<tr class="required alien">
+<tr>
     <td>
-        <div id="immigrantLabel">
-            <a href="#" onclick="return false;">Immigrant Alien:
+        <a href="#" onclick="return false;"><span class="rowTitle">Immigrant Alien?</span><span class="requiredAsterisk"> **</span>
             <span class="tip">
             Also known as a "Permanent Resident Alien",
                 "Lawful Permanent Resident," "Resident Alien Permit Holder,"
                 or "Green Card Holder"</span>
             </a>
-        </div>
+ 
+    <span class="requiredField">
+        <g:radioGroup name="immigrantAlien" value="${info.immigrantAlien}" id="immigrantAlien"
+        labels="['Yes','No']"
+        values="['true','false']">
+		    <label>
+		            <span class="radioSpan">${it.radio}</span>
+		            ${it.label}
+		    </label>
+         </g:radioGroup>   
+    </span>
+           
     </td>
+</tr>
+<tr class="rowTitle">
     <td>
-        <div id="immigrantValue">
-            
-            Yes <input name="immigrantAlien" value="1" type="radio">
-            No <input name="immigrantAlien" value="0" type="radio">
-            
-        </div>
+        Alien Registration, Visa, or Passport Number: <span class="requiredAsterisk"> **</span>
+     <br/>
+        <input class="requiredField" name="alienNumb" value="${info.alienNumb}"  type="text">
+</td>
+<td class="rowTitle">
+    
+     Expiration Date: <span class="requiredAsterisk"> **</span>
+    <br/>
+        <input class="requiredField cal" name="alienExp" id="alienExp" value="${info.alienExp}" type="text"/>
     </td>
 </tr>
 
-  <tr class="required">
-            <td>
-                
-                            <a href="#" onclick="return false;">
-                                
-                                Preferred Kerberos Realm:
-                            <div class="tip">
-                               <p> For a Standard account select <span class="emphasis">HPCMP.HPC.MIL</span> </p>
-                               <p> For an Open Systems account select <span class="emphasis">ORS.HPC.MIL</span> </p>
-                            </div>
-                            </a>
-                
-                
-                
-            </td>
-            <td>
-                
-                    <select name="realmID" id="realmID"><option selected="selected" value="HPCMP.HPC.MIL">HPCMP.HPC.MIL</option>
-<option value="ORS.HPC.MIL">ORS.HPC.MIL</option></select>
-                
-                
-            </td>
-        </tr>
-    
-
-<!-- This is how we handled the common names for the applications screen -->
-
-    
-
-
-
-<!-- End of the application form section -->
-
-<!-- This is how we handled the common names for the applications screen -->
-
-
-
-    <tr class="required">
-        <td>
-            
-            Org ID:
+        </table>
         </td>
+        </tr>
+      <tr>
+        <td colspan="2" scope="row" class="grey-bar">Contact Info </td>
+        </tr>
+        <tr>
         <td>
-            
-                <select id="orgID" name="orgID"><option selected="selected" value="">Select organization</option>
+        <table class="innerTable">
+<tr>
+    <td class="rowTitle">
+       Phone Numbers
+    </td>
+    </tr>
+   
+   <tr>
+   <td>
+   <table class="mainTable"><tr><td>
+        <span class="rowTitle">Primary</span><span class="requiredAsterisk"> **</span>
+        <br/>
+         <input class="requiredField" name="phone" maxlength="12" size="25" onchange="this.value=formatPhone(this.value, document.forms[0].country.options[document.forms[0].country.selectedIndex].value);" type="text"/>
+    </td>
+    <td> <span class="rowTitle">Ext</span><br/>
+       
+        <input name="phone1Ext" maxlength="5" size="7" type="text">
+    </td>
+    <td>        
+         <span class="rowTitle">Alternate</span>
+    <br/>
+        <input name="phone2" size="25" onchange="this.value=formatPhone(this.value, document.forms[0].country.options[document.forms[0].country.selectedIndex].value);" type="text"/>
+        </td>
+   
+    <td>Ext<br/><input name="phone2Ext" maxlength="5" size="14" type="text">
+    </td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+    <td>
+        
+         <span class="rowTitle">Fax</span><br/>
+        <input name="fax" size="25" onchange="this.value=formatPhone(this.value, document.forms[0].country.options[document.forms[0].country.selectedIndex].value);" type="text">
+    </td>
+</tr>
+<tr>
+    <td class="rowTitle">
+       E-mail Addresses
+    </td>
+    </tr>
+<tr>
+    <td><span class="rowTitle">
+       Primary</span><span class="requiredAsterisk"> **</span>
+    <br/>
+        <input class="requiredField" name="email" size="50" type="text"/>
+    </td>
+</tr>
+<tr>
+    <td><span class="rowTitle">
+       Alternate</span>
+    <br/>
+        <input name="email2" size="50" type="text"/>
+    </td>
+</tr>
+</table></td>
+</tr>
+
+   <tr>
+        <td colspan="2" scope="row" class="grey-bar">Mailing Address/Location </td>
+        </tr>
+        <tr>
+        <td>
+        <table class="innerTable">
+<tr>
+    <td> <span class="rowTitle">
+        Company/Organization </span><span class="requiredAsterisk">**</span>
+        <br/>
+    <input class="requiredField" name="company" size="50" type="text" value="${info.company}" />
+    </td>
+    <td><span class="rowTitle">
+        Office Symbol</span>
+    <br/>
+        <input name="organizationHier" size="10" type="text" value="${info.organizationHier}">
+    </td>
+</tr>
+  
+   
+
+    
+
+
+    <tr>
+        <td colspan="2"><span class="rowTitle">HCPMP Org ID</span><span class="requiredAsterisk">**</span>(Click here to load more)
+        <br/>
+      <select class="requiredField" id="orgID" name="orgID"><option selected="selected" value="">Select organization</option>
 <option value="ACOMA">ACOMA - Aviation Command at Moffett Field, CA</option>
 <option value="ACOML">ACOML - Aviation Command at Langley Research Center, VA</option>
 <option value="ACOMM">ACOMM - Army Material Command at Redstone Arsenal, AL</option>
@@ -794,251 +980,45 @@
         </td>
     </tr>
 
-
-<tr class="required alien">
-    <td>
-        Alien Registration, Visa, or Passport Number:
-        <p class="inlineErrors"></p>
-    </td>
-    <td>
-        <input name="alienNumb" value="${info.alienNumb}"  type="text">
-</tr>
-<tr class="required alien">
-    <td>
-        Alien Registration, Visa, or Passport Expiration Date:
-        <p class="inlineErrors"> </p>
-    </td>
-    <td>
-        <input name="alienExp" id="alienExp" value="${info.alienExp}" class="cal" type="text"/>
-    </td>
-</tr>
-<tr class="required">
-    <td>
-        
-        Legal First Name:
-    </td>
-    <td>
-        <input name="firstname" id="firstname" value="${info.firstname}"  size="50" type="text">
-    </td>
-</tr>
 <tr>
-    <td>
-        
-        Legal Middle Name:
-    </td>
-    <td>
-        <input name="middlename"  id="middlename" value="${info.middlename}"  size="50" type="text">
-    </td>
-</tr>
-<tr class="required">
-    <td>
-        
-        Legal Last Name:
-    </td>
-    <td>
-           <input name="lastname"  id="lastname" value="${info.lastname}"  size="50" type="text">
-    </td>
-</tr>
-<tr>
-    <td>
-        
-        Legal Last Name Suffix:
-    </td>
-    <td>
-        <select name="suffix"><option selected="selected" value="">Select Suffix</option>
-            <option value="Jr.">Jr.</option>
-<option value="Sr.">Sr.</option>
-<option value="I">I</option>
-<option value="II">II</option>
-<option value="III">III</option>
-<option value="IV">IV</option>
-<option value="V">V</option></select>
-    </td>
-</tr>
-<tr>
-    <td>
-        
-        Title (Mr., Ms., Dr., Military):
-    </td>
-    <td>
-        <select name="surTitle"><option selected="selected" value="">Select Title</option>
-            <option value="Mr.">Mr.</option>
-<option value="Mrs.">Mrs.</option>
-<option value="Miss">Miss</option>
-<option value="Ms.">Ms.</option>
-<option value="Dr.">Dr.</option>
-<option value="Prof.">Prof.</option>
-<option value="SPC">SPC (Specialist)</option>
-<option value="CPL">CPL (Corporal)</option>
-<option value="SGT">SGT (Sergeant)</option>
-<option value="SSG">SSG (Staff Sergeant)</option>
-<option value="TSGT">TSGT (Technical Sergeant)</option>
-<option value="SFC">SFC (Sergeant First Class)</option>
-<option value="MSG">MSG (Master Sergeant)</option>
-<option value="2LT">2LT (Second Lieutenant)</option>
-<option value="1LT">1LT (First Lieutenant)</option>
-<option value="CAPT">CAPT (Captain)</option>
-<option value="MAJ">MAJ (Major)</option>
-<option value="LTC">LTC (Lieutenant Colonel)</option>
-<option value="COL">COL (Colonel)</option>
-<option value="LT">LT (Lieutenant)</option>
-<option value="LCDR">LCDR (Lieutenant Commander)</option>
-<option value="CDR">CDR (Commander)</option>
-<option value="ENS">ENS (Ensign)</option>
-<option value="MIDN">MIDN (Midshipman)</option>
-<option value="CDT">CDT (Cadet)</option></select>
-    </td>
-</tr>
-<tr>
-    <td>
-        
-        Nickname:
-    </td>
-    <td>
-        <input name="nickname" type="text" value="${info.nickname}" >
-    </td>
+    <td colspan="2" class="rowTitle">Business/School Address (Do not use P.O. Box)</td>
 </tr>
 
 <tr>
-    <td>Mailing address:</td>
-</tr>
-<tr class="required">
-    <td>
-        
-        Company/Organization
-    </td>
-    <td>
-        <input name="company" size="50" type="text" value="${info.company}" />
+    <td class="rowTitle"">
+        Line 1 <span class="requiredAsterisk">**</span>
+    &nbsp; 
+        <input name="address1" cols="47" rows="2" value="${info.address1}"/>
     </td>
 </tr>
 <tr>
-    <td>
-        
-        Office symbol:
-    </td>
-    <td>
-        <input name="organizationHier" size="50" type="text" value="${info.organizationHier}">
-    </td>
-</tr>
-<tr class="required">
-    <td>
-        
-        Business/School Address 1: <br>(do not use a PO Box)
-    </td>
-    <td>
-        <textarea name="address1" cols="47" rows="2"></textarea>
+    <td class="rowTitle">
+        Line 2
+     &nbsp; 
+        <input name="address2" cols="47" rows="2" value="${info.address2}"/>
     </td>
 </tr>
 <tr>
-    <td>
-        
-        Business/School Address 2:
-    </td>
-    <td>
-        <textarea name="address2" cols="47" rows="2">${info.address2}</textarea>
+    <td class="rowTitle">
+       Line 3
+     &nbsp; 
+       <input name="address3" cols="47" rows="2" value="${info.address3}"/>
     </td>
 </tr>
 <tr>
-    <td>
-        
-        Business/School Address 3:
-    </td>
-    <td>
-        <textarea name="address3" cols="47" rows="2">${info.address3}</textarea>
+    <td class="rowTitle">
+      Line 4
+    &nbsp; 
+           <input name="address4" cols="47" rows="2" value="${info.address4}"/>
     </td>
 </tr>
 <tr>
-    <td>
-        
-        Business/School Address 4:
-    </td>
-    <td>
-        <textarea name="address4" cols="47" rows="2">${info.address4}</textarea>
-    </td>
-</tr>
-<tr class="required">
-    <td>
-        
-        City:
-    </td>
-    <td>
-        <input name="city" size="50" type="text" value="${info.city}">
-    </td>
-</tr>
-<tr class="required">
-    <td>
-        
-        
-        State:
-    </td>
-    <td>
-        <!--html:text property="state" size="50" /-->
-        <select name="state"><option selected="selected" value="">n/a</option>
-<option value="AA">AA</option>
-<option value="AE">AE</option>
-<option value="AK">AK</option>
-<option value="AL">AL</option>
-<option value="AP">AP</option>
-<option value="AR">AR</option>
-<option value="AZ">AZ</option>
-<option value="CA">CA</option>
-<option value="CO">CO</option>
-<option value="CT">CT</option>
-<option value="DC">DC</option>
-<option value="DE">DE</option>
-<option value="FL">FL</option>
-<option value="GA">GA</option>
-<option value="HI">HI</option>
-<option value="IA">IA</option>
-<option value="ID">ID</option>
-<option value="IL">IL</option>
-<option value="IN">IN</option>
-<option value="KS">KS</option>
-<option value="KY">KY</option>
-<option value="LA">LA</option>
-<option value="MA">MA</option>
-<option value="MD">MD</option>
-<option value="ME">ME</option>
-<option value="MI">MI</option>
-<option value="MN">MN</option>
-<option value="MO">MO</option>
-<option value="MS">MS</option>
-<option value="MT">MT</option>
-<option value="NC">NC</option>
-<option value="ND">ND</option>
-<option value="NE">NE</option>
-<option value="NH">NH</option>
-<option value="NJ">NJ</option>
-<option value="NM">NM</option>
-<option value="NV">NV</option>
-<option value="NY">NY</option>
-<option value="OH">OH</option>
-<option value="OK">OK</option>
-<option value="OR">OR</option>
-<option value="PA">PA</option>
-<option value="RI">RI</option>
-<option value="SC">SC</option>
-<option value="SD">SD</option>
-<option value="TN">TN</option>
-<option value="TX">TX</option>
-<option value="UT">UT</option>
-<option value="VA">VA</option>
-<option value="VT">VT</option>
-<option value="WA">WA</option>
-<option value="WI">WI</option>
-<option value="WV">WV</option>
-<option value="WY">WY</option></select>
-    </td>
-</tr>
-
-<tr class="required">
-    <td>
-        
-        Country:
-    </td>
-    <td>
-        <!--html:text property="country" size="50" /-->
-        <select name="country" onchange="checkZipBgColor(this.value, 'zipcoderow')"><option selected="selected" value="United States">United States</option>
+<td>
+        <span class="rowTitle">
+        Country <span class="requiredAsterisk">**</span>
+        </span>
+    <br/>
+        <select class="requiredField" name="country" onchange="checkZipBgColor(this.value, 'zipcoderow')"><option selected="selected" value="United States">United States</option>
 <option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
 <option value="United States Misc. Caribbean Islands">United States Misc. Caribbean Islands</option>
 <option value="United States Misc. Pacific Islands">United States Misc. Pacific Islands</option>
@@ -1295,63 +1275,162 @@
 <option value="Zimbabwe">Zimbabwe</option></select>
     </td>
 </tr>
-<tr class="required" id="zipcoderow">
+<tr>
+<td colspan="2">
+<table class="mainTable">
     <td>
-        
-        Zipcode:
+        <span  class="rowTitle">
+        City
+        </span>
+      <br/>
+        <input class="requiredField" name="city" size="50" type="text" value="${info.city}">
+    </td> 
+    <td>
+      <span  class="rowTitle">     
+        State
+    <br/>
+        <!--html:text property="state" size="50" /-->
+        <select class="requiredField" name="state"><option selected="selected" value="">n/a</option>
+<option value="AA">AA</option>
+<option value="AE">AE</option>
+<option value="AK">AK</option>
+<option value="AL">AL</option>
+<option value="AP">AP</option>
+<option value="AR">AR</option>
+<option value="AZ">AZ</option>
+<option value="CA">CA</option>
+<option value="CO">CO</option>
+<option value="CT">CT</option>
+<option value="DC">DC</option>
+<option value="DE">DE</option>
+<option value="FL">FL</option>
+<option value="GA">GA</option>
+<option value="HI">HI</option>
+<option value="IA">IA</option>
+<option value="ID">ID</option>
+<option value="IL">IL</option>
+<option value="IN">IN</option>
+<option value="KS">KS</option>
+<option value="KY">KY</option>
+<option value="LA">LA</option>
+<option value="MA">MA</option>
+<option value="MD">MD</option>
+<option value="ME">ME</option>
+<option value="MI">MI</option>
+<option value="MN">MN</option>
+<option value="MO">MO</option>
+<option value="MS">MS</option>
+<option value="MT">MT</option>
+<option value="NC">NC</option>
+<option value="ND">ND</option>
+<option value="NE">NE</option>
+<option value="NH">NH</option>
+<option value="NJ">NJ</option>
+<option value="NM">NM</option>
+<option value="NV">NV</option>
+<option value="NY">NY</option>
+<option value="OH">OH</option>
+<option value="OK">OK</option>
+<option value="OR">OR</option>
+<option value="PA">PA</option>
+<option value="RI">RI</option>
+<option value="SC">SC</option>
+<option value="SD">SD</option>
+<option value="TN">TN</option>
+<option value="TX">TX</option>
+<option value="UT">UT</option>
+<option value="VA">VA</option>
+<option value="VT">VT</option>
+<option value="WA">WA</option>
+<option value="WI">WI</option>
+<option value="WV">WV</option>
+<option value="WY">WY</option></select>
     </td>
+   
     <td>
-        <input name="zipcode" size="50" type="text">
+    <span class="rowTitle">
+        Zip </span>   
+    <br/>
+        <input class="requiredField" name="zipcode" size="50" type="text">
     </td>
 </tr>
 
-<tr class="required">
-    <td>
+
+      </table>
+  </td>
+  </tr>
+  </table>
+  </td>
+  </tr>
+     <tr>
+        <td colspan="2" scope="row" class="grey-bar">Account Preferences </td>
+        </tr>
+        <tr>
+        <td>
+        <table class="innerTable">
         
-        Primary Phone (include area code):
-    </td>
-    <td>
-        <input name="phone" size="25" onchange="this.value=formatPhone(this.value, document.forms[0].country.options[document.forms[0].country.selectedIndex].value);" type="text">
-        Ext: <input name="phone1Ext" maxlength="5" size="14" type="text">
-    </td>
-</tr>
-<tr>
-    <td>
+  <tr>
+            <td>
+                
+                            <a href="#" onclick="return false;">
+                                
+                                Preferred Kerberos Realm:
+                            <div class="tip">
+                               <p> For a Standard account select <span class="emphasis">HPCMP.HPC.MIL</span> </p>
+                               <p> For an Open Systems account select <span class="emphasis">ORS.HPC.MIL</span> </p>
+                            </div>
+                            </a>
+                
+                
+                
+            </td>
+            <td>
+                
+                    <select name="realmID" id="realmID"><option selected="selected" value="HPCMP.HPC.MIL">HPCMP.HPC.MIL</option>
+<option value="ORS.HPC.MIL">ORS.HPC.MIL</option></select>
+                
+                
+            </td>
+        </tr>
         
-        Alternate Phone (include area code):
-    </td>
-    <td>
-        <input name="phone2" size="25" onchange="this.value=formatPhone(this.value, document.forms[0].country.options[document.forms[0].country.selectedIndex].value);" type="text">
-        Ext: <input name="phone2Ext" maxlength="5" size="14" type="text">
-    </td>
-</tr>
-<tr>
-    <td>
+        <tr>            <td><span class="rowTitle">         
+                Preferred Username</span> <span class="requiredAsterisk">**</span>
+                    <input class="requiredField" value="${info.preferredUsernames}" name="preferredUsernames" maxlength="8" size="15" type="text">
+                    <input name="checkforpreferred" value="true" type="hidden">
+             </td>
+ <td><span class="rowTitle"> Preferred Shell</span> <span class="requiredAsterisk">**</span>
+            </td>
+            <td>
+                <select class="requiredField" name="preferredShell"><option selected="selected" value="csh">C Shell (csh)</option>
+                    <option value="sh">Bourne (sh)</option>
+                    <option value="ksh">Korn (ksh)</option>
+                    <option value="tcsh">Extended C Shell (tcsh)</option>
+                    <option value="bash">GNU Bourne-again Shell (bash)</option>
+                    <option value="zsh">Z Shell (zsh)</option></select>
+
+                    
+            </td>            
+            
+        </tr>
+    
+        </table>
+        </td>
+        </tr>
+          <tr>
+        <td colspan="2" scope="row" class="grey-bar">Add a new comment to your profile </td>
+        </tr>
+        <tr>
+        <td>
+        <table class="innerTable">
+          <td>
         
-        Fax (include area code):
-    </td>
-    <td>
-        <input name="fax" size="50" onchange="this.value=formatPhone(this.value, document.forms[0].country.options[document.forms[0].country.selectedIndex].value);" type="text">
-    </td>
-</tr><tr class="required">
-    <td>
-        
-        Email address:
-    </td>
-    <td>
-        <input name="email" size="50" type="text">
-    </td>
-</tr>
-<tr>
-    <td>
-        
-        Alternate Email address:
-    </td>
-    <td>
-        <input name="email2" size="50" type="text">
-    </td>
-</tr>
-</tbody>
+            
+            <i>Comments are stored in your public profile and visible to other users</i>
+            <br/>
+            <textarea name="comment" cols="130" rows="4" class="countCharShort">${info.comment} </textarea><div class="counter">characters remaining: 1000</div>
+</div>
+        </table>
+  </table>
 </table>
             <div class="buttons">
                 <span class="button">

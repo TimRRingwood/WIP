@@ -40,6 +40,11 @@ class InfoUsers implements Serializable {
 	String phone2
 	String email2
 	String fax
+	String position
+	String preferredUsernames
+	String preferredShell
+	String comment
+	boolean isGovEmp
 	
 	
 	static transients = ['username', 'password']
@@ -79,6 +84,11 @@ class InfoUsers implements Serializable {
 		orgID(blank:true, nullable:true)
 		organizationHier(blank:true, nullable:true)
 		company(blank:true, nullable:true)
+		position(blank:true, nullable:true, maxSize: 50)
+		preferredUsernames(blank:true, nullable:true, maxSize: 8)
+		preferredShell(blank:true, nullable:true)
+		isGovEmp(blank:true, nullable:true)
+		comment(blank:true, nullable:true)
   } 
   
 	
@@ -115,5 +125,10 @@ class InfoUsers implements Serializable {
 		this.phone2Ext = params.phone2Ext
 		this.organizationHier = params.organizationHier
 		this.fax = params.fax
+		this.position = params.position
+		this.isGovEmp = params.boolean('isGovEmp')
+	    this.preferredUsernames = params.preferredUsernames
+		this.preferredShell = params.preferredShell
+		this.comment = params.comment
 	} 
 }

@@ -1,0 +1,72 @@
+.grey-bar {
+display: block;
+background-color: #A5A5A5;
+border-top-left-radius: 6px;
+border-top-right-radius: 6px;
+color: #000;
+font-weight: bold;
+font-size: 17px;
+border: medium none;
+margin: -1px 0px 0px;
+padding: 0px 10px;
+text-align: left;
+line-height: 30px;
+}
+
+.center-row {
+	 text-align: center;
+}
+
+.leftCell {
+	align: left;
+}
+
+.requiredField {
+	background-color:#d2dee2
+}
+
+.requiredAsterisk {
+    color: #e32;
+    content: ' **';
+}
+
+.mainTable {
+	width: 90%;
+	border: 0px;
+    padding: 0px;
+	margin: 0;
+}
+
+table.innerTable {
+	width: 100%;
+	padding: 0px;
+	margin: 0;
+	border: 1px solid #000
+	-webkit-border-radius: 5px;
+border-radius: 5px;
+
+}
+
+
+.innerTable tr td  {
+    border: none;
+    align: left
+}
+
+td#leftBorder {
+	margin: 5px;
+	border-right: none;
+    border-top: none;
+    border-bottom: none;
+    border-left: 1px solid #eee;
+}
+
+.rowTitle {
+	font-weight: bold;
+}
+
+
+
+
+
+
