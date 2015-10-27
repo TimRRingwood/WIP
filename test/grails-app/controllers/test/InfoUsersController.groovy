@@ -28,6 +28,7 @@ class InfoUsersController {
 
 				}
 			}.to("pieinfoAuth")
+			on("error").to("splash")
 			on(Exception).to("splash")
 		}
 		splash {
@@ -124,7 +125,9 @@ class InfoUsersController {
 			action {  }
 			on('success') {
 				def authUser = springSecurityService.currentUser
-				[user: authUser, info: authUser?.infoUsers]
+				def pocUserId = 'poc_' + authUser.id
+				def pocUser	= LoginInfo.findByUsername(pocUserId)
+				[user: authUser, info: authUser?.infoUsers, poc: pocUser?.infoUsers]
 			}.to("pieinfo")
 		}
 		pieinfo {
@@ -137,10 +140,10 @@ class InfoUsersController {
 				def user
 				def pwd
 				def userId = params.int('userId');
-				println "UID: " + userId
+				def pocId =  params.int('pocId');
+				println "POC_ID: " + pocId
 				if (userId == -1) {
 					String email = params.email
-					print "EMAIL " + email
 					if (email == null || email.empty) {
 						 print "NO email"
 						flash.message = "Email Required For New Account"
@@ -148,34 +151,49 @@ class InfoUsersController {
 						return error()
 					}
 					pwd = loginService.getPassword()
-					println "PWD: " + pwd
 					user = loginService.createNewUser(email, pwd)
-					println ("USER: " + user)
 					user.password = pwd
 				}
 				else {
-					println "Getting from database"
 				    user = LoginInfo.read(params.userId)
 				}
-				def info = user.infoUsers
-				println "P: " + params.userId
+				def info = user.infoUsers	
+				def pocInfo
 				// In abstract info should never be null as a new user creates an info row in the db
 				if (info == null) {
-					def newInfo  = new InfoUsers();
-					newInfo.assignParams(params);
-					newInfo.save();
-					info = newInfo
-					user = newInfo
-					user.save(flush: true)
-				}
-				else {
+					println("new user")
+					info  = new InfoUsers();
 					info.assignParams(params);
-					info.save(flush: true)
+					//info.poc?.save()
+					info.save()
 				}
-
-				println "INFO: " + info
-				//bindData(flow.info, command)
-				[info: info, pwd: pwd]
+				else { 
+					info.assignParams(params);
+					def pocUserId = 'poc_' + user.id
+					def pocUser	= LoginInfo.findByUsername(pocUserId)
+					if (!info.isGovEmp) {
+						if (pocUser == null) {
+							pocUser = loginService.createNewUser(pocUserId, 'temp')
+						}
+						info.pocId = pocUser.id
+					}
+					else {
+						pocUser?.delete()
+						pocUser = null
+						info?.pocId = null
+					}
+					info.save(flush: true)
+					if (pocUser?.infoUsers != null) {
+						pocInfo = pocUser.infoUsers
+						pocInfo.firstname = params.pocFirstname;
+						pocInfo.lastname = params.pocLastname;
+						pocInfo.middlename = params.pocMiddleName;
+						pocInfo.suffix = params.pocSuffix;
+						pocInfo.email = params.pocEmail;
+						pocInfo.save(flush: true)		
+					}
+				}
+				[info: info, pwd: pwd, poc: pocInfo]
 			}.to('pieinfo')
 			on('cancel').to('finish')
 		}
@@ -221,12 +239,9 @@ class BuildInfoUsersNameCommand implements Serializable {
 class LoginCommand implements Serializable {
 
 	String username
-	//String password
-	//LoginInfo user
 
 	static constraints = {
 		username(blank:false, nullable:false, maxSize: 50)
-		//password(blank:false, nullable:false, maxSize: 50)
 	}
 
 }

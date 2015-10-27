@@ -4,64 +4,27 @@
     content="text/html; charset=UTF-8"/>
     <meta name="layout" content="hpc" />
     <title>PIE - New User</title>
-    
+    <script src="/test/assets/charCount.js" type="text/javascript" ></script>
+    <script src="/test/assets/editControl.js" type="text/javascript" ></script>    
 
          
      <script type="text/javascript" id="js1">
     
-        $(document).ready(function() {
- 
     
-            var tc1 = $("#hidCitizen1").val()* 1;       
-            var tc2 = $("#hidCitizen2").val() * 1;
-            $("#citizen1").val(tc1);
-            $("#citizen2").val(tc2);          
-         
-
-            var v = tc1 != '0' && tc2 != '0';
-            if (v) {
-                $('#dualCitizen').attr("checked", true);
-                $("#2Citizen").removeClass('hidden');
-            }
-            else {
-                $('#dualCitizen').attr("checked", false);
-                $("#2Citizen").addClass('hidden');
-            }
-
-            $('#dualCitizen').change(function() {
-                if(this.checked) $("#2Citizen").removeClass('hidden');
-                else {
-                    $("#2Citizen").addClass('hidden');
-                    $("#citizen2").val("0");
-                }
-            });
-            
-            try {
-	           $(".cal").datepicker( {
-	               showOn: "button",
-	                buttonImage: "/test/assets/cal.gif",
-	                buttonImageOnly: false,
-	                dateFormat: 'mm/dd/yy'
-	           });
-
-	           //$("#alienExp").datepicker();
-	            
-	            	            
-	            //$("#viewAgreement").css('display', $("#newUserAgreement").val() ? 'none': 'block');
-	            //$("#agreementSuccess").css('display', $("#newUserAgreement").val() ? 'block': 'none');
-                $(".tip").each(function() {
-			        $(this).parent().tooltip({
-			            content: function() {return $(this).find(".tip").html();}  ,
-			            items: $(this).parent(),
-			            tooltipClass: "pieTooltip"
-			        })
-			    });
-            
-            
-            }
-            catch(e) {
-               alert(e.message);
-            }
+        $(document).ready(function() {
+              pieSetup();
+	          $("#surTitle").val('${info.surTitle}');
+              $("#suffix").val('${info.suffix}'); 
+              $("#citizen1").val('${info.citizen1}');
+              $("#citizen2").val('${info.citizen2}');
+              $("#orgID").val('${info.orgID}');
+              $("#country").val('${info.country}'); 
+              $("#city").val('${info.city}');
+              $("#realmID").val('${info.realmID}');
+              $("#preferredShell").val('${info.preferredShell}');
+              toggleCitizen();
+              dualTrigger();
+              togglePOC();
          });
         
        </script>
@@ -83,8 +46,7 @@
         <g:form action="build">
    
         <input type="hidden" id="userId" name="userId" value="${user.id}" />
-        <input type="hidden" id="hidCitizen1" name="hidCitizen1" value="${info.citizen1}" />
-        <input type="hidden" id="hidCitizen2" name="hidCitizen2" value="${info.citizen2}" />
+        <input type="hidden" id="pocId" name="pocId" value="${user.infoUsers?.pocId}" />
         
         <table class="mainTable">
          <tr>
@@ -99,7 +61,7 @@
         <tr>
           <td colspan="2" class="rowTitle">Title/Rank
               <br/>
-        <select name="surTitle"><option selected="selected" value="">Select Title</option>
+        <select name="surTitle" id="surTitle"><option selected="selected" value="">Select Title</option>
             <option value="Mr.">Mr.</option>
 <option value="Mrs.">Mrs.</option>
 <option value="Miss">Miss</option>
@@ -171,7 +133,7 @@
         &nbsp; Suffix:
     </td>
     <td>
-        <select name="suffix"><option selected="selected" value="">Select Suffix</option>
+        <select name="suffix" id="suffix"><option selected="selected" value="">Select Suffix</option>
             <option value="Jr.">Jr.</option>
 <option value="Sr.">Sr.</option>
 <option value="I">I</option>
@@ -199,8 +161,8 @@
         <td class="rowTitle">
            Government Employee <span class="requiredAsterisk"> **</span>
         </td>
-        <td class="requiredField">
-        <g:radioGroup name="isGovEmp" value="${info.isGovEmp}" id="isGovEmp"
+        <td>
+        <g:radioGroup onchange="togglePOC();" class="requiredField" name="isGovEmp" value="${info.isGovEmp}" id="isGovEmp"
         labels="['Yes','No']"
         values="['true','false']">
 		    <label>
@@ -212,6 +174,83 @@
         </td>
         
         </tr>
+       <tr class="poc">
+       <td class="rowTitle">
+          Agency
+          <br/>
+          <Select id="agencyId" name="agencyId">
+            <option value="0">This LIST TBD</option>
+          </Select>
+       </td>
+       </tr>
+        
+        <tr class="poc">
+          <td>
+            <span class="rowTitle">Contract Number</span>
+            <br/>
+            <input class="contractNumber" name="contractNumber" value="${info.contractNumber}"  type="text">
+         </td>
+         <td class="rowTitle">
+           Contract Expiration Date:
+           <br/>
+           <input class="cal" name="conExp" id="alienExp" value="${info.conExp}" type="text"/>
+        </td>
+       </tr>
+
+<tr class="poc">
+        <td class="rowTitle">Government POC Legal Name</td>
+</tr>
+
+<tr class="poc">
+    <td class="rowTitle">
+        
+        &nbsp; First<span class="requiredAsterisk"> **</span>
+    </td>
+    <td class="rowTitle">
+        <input class="requiredField" name="pocFirstname" id="pocFirstname" value="${poc?.firstname}"  size="50" type="text"/>
+    </td>
+</tr>
+<tr class="poc">
+    <td class="rowTitle">
+        
+        &nbsp; Middle
+    </td>
+    <td>
+        <input name="pocMiddlename"  id="pocMiddlename" value="${poc?.middlename}"  size="50" type="text"/>
+    </td>
+</tr>
+<tr class="poc">
+    <td class="rowTitle">
+        
+        &nbsp; Last<span class="requiredAsterisk"> **</span>
+    </td>
+    <td>
+           <input class="requiredField" name="pocLastname"  id="pocLastname" value="${poc?.lastname}"  size="50" type="text"/>
+    </td>
+</tr>
+<tr class="poc">
+    <td class="rowTitle">
+        &nbsp; Suffix:
+    </td>
+    <td>
+        <select name="pocSuffix" id="pocSuffix"><option selected="selected" value="">Select Suffix</option>
+            <option value="Jr.">Jr.</option>
+<option value="Sr.">Sr.</option>
+<option value="I">I</option>
+<option value="II">II</option>
+<option value="III">III</option>
+<option value="IV">IV</option>
+<option value="V">V</option></select>
+    </td>
+</tr>
+
+<tr class="poc">
+    <td><span class="rowTitle">
+       Government POC E-Mail</span><span class="requiredAsterisk"> **</span>
+    <br/>
+        <input class="requiredField" name="pocEmail" value="${poc?.email}" size="50" type="text"/>
+    </td>
+</tr>
         </table>
         
         </td>
@@ -225,7 +264,7 @@
         <tr>
             <td>
         
-            <select name="citizen1" onchange="changeCitizenship(this.value);" id="citizen1"><option selected="selected" value="">Select Citizenship</option>
+            <select name="citizen1" onchange="toggleCitizen();" id="citizen1"><option selected="selected" value="">Select Citizenship</option>
                 <option value="1">United States</option>
 <option value="2">United States Minor Outlying Islands</option>
 <option value="3">United States Misc. Caribbean Islands</option>
@@ -485,7 +524,7 @@
         
         
 
-        <div class="hidden" id="2Citizen"> <select name="citizen2" onchange="changeCitizenship(this.value);" id="citizen2"><option value="0" selected="selected">Select 2nd Country</option>
+ <div class="hidden" id="2Citizen"> <select name="citizen2" onchange="toggleCitizen();" id="citizen2"><option value="0" selected="selected">Select 2nd Country</option>
             <option value="1">United States</option>
 <option value="2">United States Minor Outlying Islands</option>
 <option value="3">United States Misc. Caribbean Islands</option>
@@ -743,10 +782,10 @@
 <option value="253">Zimbabwe</option></select> </div>
     </td>
     <td class="rowTitle">
-          <input name="dualCitizen" value="1" id="dualCitizen" type="checkbox">Dual Citizenship?
+          <g:checkBox name="dualCitizen" id="dualCitizen" value="1" onchange="dualTrigger()" />Dual Citizenship?
      <td>
 </tr>
-<tr>
+<tr class="alien">
     <td>
         <a href="#" onclick="return false;"><span class="rowTitle">Immigrant Alien?</span><span class="requiredAsterisk"> **</span>
             <span class="tip">
@@ -768,7 +807,7 @@
            
     </td>
 </tr>
-<tr class="rowTitle">
+<tr class="alien rowTitle">
     <td>
         Alien Registration, Visa, or Passport Number: <span class="requiredAsterisk"> **</span>
      <br/>
@@ -802,7 +841,7 @@
    <table class="mainTable"><tr><td>
         <span class="rowTitle">Primary</span><span class="requiredAsterisk"> **</span>
         <br/>
-         <input class="requiredField" name="phone" maxlength="12" size="25" onchange="this.value=formatPhone(this.value, document.forms[0].country.options[document.forms[0].country.selectedIndex].value);" type="text"/>
+         <input class="requiredField" name="phone" size="25" onchange="this.value=formatPhone(this.value, document.forms[0].country.options[document.forms[0].country.selectedIndex].value);" type="text"/>
     </td>
     <td> <span class="rowTitle">Ext</span><br/>
        
@@ -836,14 +875,14 @@
     <td><span class="rowTitle">
        Primary</span><span class="requiredAsterisk"> **</span>
     <br/>
-        <input class="requiredField" name="email" size="50" type="text"/>
+        <input class="requiredField" name="email" id="email" value="${info.email}" size="50" type="text"/>
     </td>
 </tr>
 <tr>
     <td><span class="rowTitle">
        Alternate</span>
     <br/>
-        <input name="email2" size="50" type="text"/>
+        <input name="email2" id="email2" value="${info.email2}" size="50" type="text"/>
     </td>
 </tr>
 </table></td>
@@ -1018,7 +1057,7 @@
         Country <span class="requiredAsterisk">**</span>
         </span>
     <br/>
-        <select class="requiredField" name="country" onchange="checkZipBgColor(this.value, 'zipcoderow')"><option selected="selected" value="United States">United States</option>
+        <select class="requiredField" id="country" name="country" onchange="checkZipBgColor(this.value, 'zipcoderow')"><option selected="selected" value="United States">United States</option>
 <option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
 <option value="United States Misc. Caribbean Islands">United States Misc. Caribbean Islands</option>
 <option value="United States Misc. Pacific Islands">United States Misc. Pacific Islands</option>
@@ -1281,16 +1320,16 @@
     <td>
         <span  class="rowTitle">
         City
-        </span>
+        </span><span class="requiredAsterisk"> **</span>
       <br/>
         <input class="requiredField" name="city" size="50" type="text" value="${info.city}">
     </td> 
     <td>
       <span  class="rowTitle">     
-        State
+        State</span><span class="requiredAsterisk"> **</span>
     <br/>
         <!--html:text property="state" size="50" /-->
-        <select class="requiredField" name="state"><option selected="selected" value="">n/a</option>
+        <select class="requiredField" id="state" name="state"><option selected="selected" value="">n/a</option>
 <option value="AA">AA</option>
 <option value="AE">AE</option>
 <option value="AK">AK</option>
@@ -1349,7 +1388,7 @@
    
     <td>
     <span class="rowTitle">
-        Zip </span>   
+        Zip </span>   <span class="requiredAsterisk"> **</span>
     <br/>
         <input class="requiredField" name="zipcode" size="50" type="text">
     </td>
@@ -1381,10 +1420,7 @@
                             </div>
                             </a>
                 
-                
-                
-            </td>
-            <td>
+          &nbsp; &nbsp; 
                 
                     <select name="realmID" id="realmID"><option selected="selected" value="HPCMP.HPC.MIL">HPCMP.HPC.MIL</option>
 <option value="ORS.HPC.MIL">ORS.HPC.MIL</option></select>
@@ -1401,7 +1437,7 @@
  <td><span class="rowTitle"> Preferred Shell</span> <span class="requiredAsterisk">**</span>
             </td>
             <td>
-                <select class="requiredField" name="preferredShell"><option selected="selected" value="csh">C Shell (csh)</option>
+                <select class="requiredField" name="preferredShell" id="preferredShell"><option selected="selected" value="csh">C Shell (csh)</option>
                     <option value="sh">Bourne (sh)</option>
                     <option value="ksh">Korn (ksh)</option>
                     <option value="tcsh">Extended C Shell (tcsh)</option>
@@ -1427,7 +1463,7 @@
             
             <i>Comments are stored in your public profile and visible to other users</i>
             <br/>
-            <textarea name="comment" cols="130" rows="4" class="countCharShort">${info.comment} </textarea><div class="counter">characters remaining: 1000</div>
+            <textarea name="comment" cols="130" rows="4" class="countCharShort">${info.comment} </textarea>
 </div>
         </table>
   </table>

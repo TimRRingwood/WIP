@@ -10,6 +10,7 @@ if (typeof jQuery !== 'undefined') {
 
 
 
+
 /*******************Sidebar collapse feature***************************/
 var lcState = 1;
 var b_canCollapse = true;

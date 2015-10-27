@@ -24,6 +24,7 @@ class InfoUsers implements Serializable {
 	String company
 	Integer citizen1
 	Integer citizen2
+	Integer pocId
 	boolean dualCitizen
 	boolean immigrantAlien
 	String realmID
@@ -45,9 +46,11 @@ class InfoUsers implements Serializable {
 	String preferredShell
 	String comment
 	boolean isGovEmp
+	String contractNumber
+	String conExp
 	
 	
-	static transients = ['username', 'password']
+	static transients = ['username', 'password', 'poc']
 	//static hasOne = [loginInfo: LoginInfo]
 	//static belongsTo = [loginInfo: LoginInfo]
 
@@ -78,6 +81,7 @@ class InfoUsers implements Serializable {
 		alienExp(blank:true, nullable:true)
 		citizen1(blank:true, nullable:true)
 		citizen2(blank:true, nullable:true)
+		pocId(blank:true, nullable:true)
 		dualCitizen(blank:true, nullable:true)
 		immigrantAlien(blank:true, nullable:true)
 		realmID(blank:true, nullable:true)
@@ -89,6 +93,8 @@ class InfoUsers implements Serializable {
 		preferredShell(blank:true, nullable:true)
 		isGovEmp(blank:true, nullable:true)
 		comment(blank:true, nullable:true)
+		contractNumber(blank:true, nullable:true)
+		conExp(blank:true, nullable:true)
   } 
   
 	
@@ -130,5 +136,8 @@ class InfoUsers implements Serializable {
 	    this.preferredUsernames = params.preferredUsernames
 		this.preferredShell = params.preferredShell
 		this.comment = params.comment
+		this.contractNumber = params.contractNumber;
+		this.conExp = params.conExp;
+		this.pocId = params.int('pocId');
 	} 
 }

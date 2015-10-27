@@ -14,7 +14,9 @@
 		<asset:stylesheet src="head.css"/>
 		<asset:stylesheet src="hpc.css"/>
 		<asset:stylesheet src="hpc_new.css"/>
-		<asset:javascript src="application.js"/>
+
+		<asset:javascript src="pieinfo.js"/>
+
 		<asset:javascript src="head.js"/>
         <asset:javascript src="jquery-ui.js"/>
 		<g:layoutHead/>
