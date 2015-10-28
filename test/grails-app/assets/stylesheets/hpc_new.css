@@ -1,5 +1,4 @@
 .grey-bar {
-display: block;
 background-color: #A5A5A5;
 border-top-left-radius: 6px;
 border-top-right-radius: 6px;
@@ -44,14 +43,20 @@ table.innerTable {
 	border: 1px solid #000
 	-webkit-border-radius: 5px;
 border-radius: 5px;
-
 }
 
 
 .innerTable tr td  {
-    border: none;
-    align: left
+    border-right: none;
+    border-left: none;
+    align: left;
+    padding-bottom: 8px;
 }
+
+tr.gap {
+   margin-bottom: 10px;
+}
+
 
 td#leftBorder {
 	margin: 5px;

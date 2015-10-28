@@ -53,11 +53,12 @@
         <td scope="row" class="center-row">Required fields are highlighted in <span class="requiredField">blue</span> and marked with <span class="requiredAsterisk">**</span>.</td>
         </tr>
         <tr>
-        <td colspan="2" scope="row" class="grey-bar">Identity </td>
-        </tr>
-        <tr>
         <td>
         <table class="innerTable">
+        <tr>
+        <td colspan="10" scope="row" class="grey-bar">Identity </td>
+        </tr>
+
         <tr>
           <td colspan="2" class="rowTitle">Title/Rank
               <br/>
@@ -148,20 +149,21 @@
         
         </td>
         </tr>
-          <tr>
-        <td colspan="2" scope="row" class="grey-bar">Role/Position </td>
-        </tr>
+               <tr class="gap"><td>&nbsp;</td></tr>
         <tr>
         <td>
         <table class="innerTable">
+          <tr>
+        <td colspan="8" scope="row" class="grey-bar">Role/Position </td>
+        </tr>
+       
         <tr>
         <td class="rowTitle">Position/Role<br/>
            <input name="position" id="position" value="${info.position}"  size="50" type="text"/>
         </td>
         <td class="rowTitle">
            Government Employee <span class="requiredAsterisk"> **</span>
-        </td>
-        <td>
+        &nbsp; &nbsp; <span class="requiredField">
         <g:radioGroup onchange="togglePOC();" class="requiredField" name="isGovEmp" value="${info.isGovEmp}" id="isGovEmp"
         labels="['Yes','No']"
         values="['true','false']">
@@ -169,7 +171,7 @@
 		            <span class="radioSpan">${it.radio}</span>
 		            ${it.label}
 		    </label>
-         </g:radioGroup>
+         </g:radioGroup></span>
 
         </td>
         
@@ -255,12 +257,13 @@
         
         </td>
         </tr>
-            <tr>
-        <td colspan="2" scope="row" class="grey-bar">Citizenship </td>
-        </tr>
+                <tr class="gap"><td>&nbsp;</td></tr>
         <tr>
         <td>
         <table class="innerTable">
+            <tr>
+        <td colspan="8" scope="row" class="grey-bar">Citizenship </td>
+        </tr>
         <tr>
             <td>
         
@@ -824,12 +827,14 @@
         </table>
         </td>
         </tr>
-      <tr>
-        <td colspan="2" scope="row" class="grey-bar">Contact Info </td>
-        </tr>
+        <tr class="gap"><td>&nbsp;</td></tr>
         <tr>
         <td>
         <table class="innerTable">
+      <tr>
+        <td colspan="8" scope="row" class="grey-bar">Contact Info </td>
+        </tr>
+
 <tr>
     <td class="rowTitle">
        Phone Numbers
@@ -887,13 +892,14 @@
 </tr>
 </table></td>
 </tr>
-
-   <tr>
-        <td colspan="2" scope="row" class="grey-bar">Mailing Address/Location </td>
-        </tr>
+        <tr class="gap"><td>&nbsp;</td></tr>
         <tr>
         <td>
         <table class="innerTable">
+   <tr>
+        <td colspan="8" scope="row" class="grey-bar">Mailing Address/Location </td>
+        </tr>
+
 <tr>
     <td> <span class="rowTitle">
         Company/Organization </span><span class="requiredAsterisk">**</span>
@@ -1401,12 +1407,13 @@
   </table>
   </td>
   </tr>
-     <tr>
-        <td colspan="2" scope="row" class="grey-bar">Account Preferences </td>
-        </tr>
-        <tr>
+          <tr class="gap"><td>&nbsp;</td></tr>
+          <tr>
         <td>
         <table class="innerTable">
+     <tr>
+        <td colspan="8" scope="row" class="grey-bar">Account Preferences </td>
+        </tr>
         
   <tr>
             <td>
@@ -1452,12 +1459,15 @@
         </table>
         </td>
         </tr>
+                <tr class="gap"><td>&nbsp;</td></tr>
+                <tr>
+        <td>
+        <table class="innerTable">
           <tr>
         <td colspan="2" scope="row" class="grey-bar">Add a new comment to your profile </td>
         </tr>
         <tr>
-        <td>
-        <table class="innerTable">
+      
           <td>
         
             
