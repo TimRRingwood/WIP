@@ -27,17 +27,24 @@
               togglePOC();
               
                var validationFields = "${validationFields}".substr(1);
-					 validationFields= validationFields.replace("]", ""); 
-					 validationFields= validationFields.replace(/ /g, '');
-					 $.each(validationFields.split(','), function(index, value) {
-					    //alert("VALUE: " + value);
+					validationFields= validationFields.replace("]", ""); 
+					validationFields= validationFields.replace(/ /g, '');
+					$.each(validationFields.split(','), function(index, value) {
 					    $("#" + value).addClass("validate");
 					 });
 
                $(".validate").change(function(e) {
- 				 //alert( "Handler for .change() called!" );
- 				 textValidation(e);
+ 				   textValidation(e);
+			   });
+				
+				$('[id^="fieldError"]').each(function (index, object) {
+                     var id = object.id
+                     var text = $("#"+id).html()
+                     var fn =  id.replace("fieldError", ""); 
+                     addErrorToSelector(fn, text)
 				});
+				
+
               
          });
         

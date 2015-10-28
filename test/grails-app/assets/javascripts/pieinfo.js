@@ -86,9 +86,7 @@ function togglePOC() {
             dataType: 'text',
             success: function (data) {
                 if (data) {
-	                $(selector).addClass("errorField");
-	                $(selector).attr('title', data);
-	                $('#errors').append($("<div id=\"fieldError"+ id + "\" class=\"errorText\"></div>").text(data));
+	                addErrorToSelector(id, data)
                 }
                 else {
                     $(selector).removeClass("errorField");
@@ -103,3 +101,14 @@ function togglePOC() {
         alert(e.message);
     }
  };
+ 
+ function addErrorToSelector(fn, data) {
+    var selector = "#"+fn;
+     $(selector).addClass("errorField");
+     $(selector).attr('title', data);
+     var errorId = "fieldError"+ fn;
+     var obj = $("#" + errorId)[0];
+     if (typeof obj == 'undefined' ) {
+	     $('#errors').append($("<div id=\""+ errorId + "\" class=\"errorText\"></div>").text(data));
+	 }
+ }
