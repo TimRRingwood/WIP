@@ -65,3 +65,41 @@ function togglePOC() {
     }
 
  }
+ 
+ var textValidation = function(e){ 
+
+    var id = e.target.id;
+    var selector = "#" + id;
+    var errorSelector =  "#fieldError" + id;
+    
+    var val = $(selector).val();
+    try {
+
+     var j = {
+            field: id,
+            value: val
+        }
+
+	    $.ajax({
+            url: '/test/infoUsers/validate',
+            type: 'post',
+            dataType: 'text',
+            success: function (data) {
+                if (data) {
+	                $(selector).addClass("errorField");
+	                $(selector).attr('title', data);
+	                $('#errors').append($("<div id=\"fieldError"+ id + "\" class=\"errorText\"></div>").text(data));
+                }
+                else {
+                    $(selector).removeClass("errorField");
+	                $(selector).removeAttr('title', '');
+	                $(errorSelector).remove();
+                }
+            },
+            data: j
+        });  
+    }
+    catch(e) {
+        alert(e.message);
+    }
+ };

@@ -25,6 +25,20 @@
               toggleCitizen();
               dualTrigger();
               togglePOC();
+              
+               var validationFields = "${validationFields}".substr(1);
+					 validationFields= validationFields.replace("]", ""); 
+					 validationFields= validationFields.replace(/ /g, '');
+					 $.each(validationFields.split(','), function(index, value) {
+					    //alert("VALUE: " + value);
+					    $("#" + value).addClass("validate");
+					 });
+
+               $(".validate").change(function(e) {
+ 				 //alert( "Handler for .change() called!" );
+ 				 textValidation(e);
+				});
+              
          });
         
        </script>
@@ -49,11 +63,18 @@
         <input type="hidden" id="pocId" name="pocId" value="${user.infoUsers?.pocId}" />
         
         <table class="mainTable">
-         <tr>
-        <td scope="row" class="center-row">Required fields are highlighted in <span class="requiredField">blue</span> and marked with <span class="requiredAsterisk">**</span>.</td>
-        </tr>
-        <tr>
-        <td>
+          <tr>
+           <td scope="row" class="center-row">Required fields are highlighted in <span class="requiredField">blue</span> and marked with <span class="requiredAsterisk">**</span>.</td>
+          </tr>
+          <tr>
+             <td id="errors"><a>
+               <g:each var="err" in="${errors}">
+                 <div id="fieldError${err.key}" class="errorText">${err.value}</div>
+               </g:each>
+             </a></td>
+          </tr>
+          <tr>
+          <td>
         <table class="innerTable">
         <tr>
         <td colspan="10" scope="row" class="grey-bar">Identity </td>

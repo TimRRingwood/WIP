@@ -10,13 +10,12 @@ class InfoUsersController {
 	def scaffold = "infoUsers"
 	RecaptchaService recaptchaService
 	LoginService loginService
+	ValidationService validationService
 	SpringSecurityService springSecurityService
-	def static  failures = new HashMap<String, Integer>();
-	//static scope = "flow"
 
 	def transient sessionFactory
 
-	def test = { render "  test2 " }
+
 
 	def buildFlow = {
 		enter {
@@ -127,7 +126,7 @@ class InfoUsersController {
 				def authUser = springSecurityService.currentUser
 				def pocUserId = 'poc_' + authUser.id
 				def pocUser	= LoginInfo.findByUsername(pocUserId)
-				[user: authUser, info: authUser?.infoUsers, poc: pocUser?.infoUsers]
+				[user: authUser, info: authUser?.infoUsers, poc: pocUser?.infoUsers, errors: new HashMap(), validationFields: validationService.allFields]
 			}.to("pieinfo")
 		}
 		pieinfo {
@@ -141,11 +140,9 @@ class InfoUsersController {
 				def pwd
 				def userId = params.int('userId');
 				def pocId =  params.int('pocId');
-				println "POC_ID: " + pocId
 				if (userId == -1) {
 					String email = params.email
 					if (email == null || email.empty) {
-						 print "NO email"
 						flash.message = "Email Required For New Account"
 						flow.command = command
 						return error()
@@ -193,7 +190,9 @@ class InfoUsersController {
 						pocInfo.save(flush: true)		
 					}
 				}
-				[info: info, pwd: pwd, poc: pocInfo]
+				// send back validation 
+				def errors = validationService.validateAll(params)
+				[info: info, pwd: pwd, poc: pocInfo, errors: errors, validationFields: validationService.allFields]
 			}.to('pieinfo')
 			on('cancel').to('finish')
 		}
@@ -221,7 +220,13 @@ class InfoUsersController {
 			redirect(controller: 'info', action: 'list')
 		}
 	}
+	
 
+	// Called by Ajax to validate one field
+	def validate = {
+	    render validationService.validateField(params.field, params.value)
+	}
+	
 }
 
 class BuildInfoUsersNameCommand implements Serializable {

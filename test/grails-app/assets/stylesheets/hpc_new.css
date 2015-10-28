@@ -70,6 +70,20 @@ td#leftBorder {
 	font-weight: bold;
 }
 
+.errorField {
+	background-color: red
+}
+
+.errorText {
+	color: red
+}
+
+div[class^='fieldError'] {
+	display: block;
+	margin: 0
+
+	
+}
 
 
 
