@@ -224,7 +224,7 @@ class InfoUsersController {
 
 	// Called by Ajax to validate one field
 	def validate = {
-	    render validationService.validateField(params.field, params.value)
+	    render validationService.validateField(params.field, params.value, params)
 	}
 	
 }

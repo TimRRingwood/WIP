@@ -2,6 +2,8 @@ package com.megatome.grails.recaptcha.net
 
 import static java.net.Authenticator.RequestorType.PROXY
 
+import java.net.Proxy;
+
 /**
  * Copyright 2010-2015 Megatome Technologies
  *

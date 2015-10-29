@@ -599,7 +599,7 @@ function formatPhone(thevalue, country)
     // Do we have the right number of numbers ??
     if (buffer.length != 10)
     {
-        alert("U.S. phone numbers should be in the form ###-###-####");
+        //alert("U.S. phone numbers should be in the form ###-###-####");
         return thevalue;
     }
     ///var returnstr="xxx-xxx-xxxx";

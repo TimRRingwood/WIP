@@ -1,10 +1,16 @@
 var shortDescLen = 1000;
 
-
 function pieSetup() {  
 
    try {
        $(".cal").datepicker( {
+	      showOn: "button",
+	      buttonImage: "/test/assets/cal.gif",
+	      buttonImageOnly: false,
+	      dateFormat: 'mm/dd/yy'
+       });
+       
+       $(".cal2").datepicker( {
 	      showOn: "button",
 	      buttonImage: "/test/assets/cal.gif",
 	      buttonImageOnly: false,
@@ -21,6 +27,8 @@ function pieSetup() {
 	   
 	    
 	   $(".countCharShort").charCount({allowed: shortDescLen});
+	   
+	   
       
    }
    catch(e) {
@@ -40,22 +48,18 @@ function dualTrigger() {
 
 }
 
+// Stolen from current site; appeaers coded where show means hide
+// Since I didn't fully understand it I left it alone!
 function toggleCitizen() { 
-    try {
 	   var v = $("#citizen1").val();
        var show = v == "1";
        v = $("#citizen2").val();
        show = show || (v == "1");
        if (show) $(".alien").addClass('hidden');
        else $(".alien").removeClass('hidden');
-    }
-    catch(e) {
-         //alert(e.message);
-    }
  }
 
 function togglePOC() {
- 
 	var show = $('input[name=isGovEmp]:checked').val();
     if (show == "false"){ 
        $(".poc").removeClass('hidden');
@@ -71,13 +75,17 @@ function togglePOC() {
     var id = e.target.id;
     var selector = "#" + id;
     var errorSelector =  "#fieldError" + id;
-    
+
     var val = $(selector).val();
     try {
 
-     var j = {
+     var isGovEmp = $('input[name=isGovEmp]:checked').val();
+     var parameters = {
             field: id,
-            value: val
+            value: val,
+            citizen1: $("#citizen1").val(),
+            citizen2: $("#citizen2").val(),
+            isGovEmp: isGovEmp
         }
 
 	    $.ajax({
@@ -94,7 +102,7 @@ function togglePOC() {
 	                $(errorSelector).remove();
                 }
             },
-            data: j
+            data: parameters
         });  
     }
     catch(e) {
@@ -103,12 +111,23 @@ function togglePOC() {
  };
  
  function addErrorToSelector(fn, data) {
-    var selector = "#"+fn;
+     var selector = "#"+fn;
+     var label = $(selector).attr("label");
+
+     if (typeof label == 'undefined' ) { 
+        label = fn;
+     }
+     data = data.replace(/\[.*?\]/g, label); 
+     data = "<a href=\"#" + fn + "\">"+data+"</a>"
      $(selector).addClass("errorField");
      $(selector).attr('title', data);
      var errorId = "fieldError"+ fn;
      var obj = $("#" + errorId)[0];
      if (typeof obj == 'undefined' ) {
-	     $('#errors').append($("<div id=\""+ errorId + "\" class=\"errorText\"></div>").text(data));
+	     $('#errors').append($("<div id=\""+ errorId + "\" class=\"errorText\"></div>").html(data));
+	 }
+	 else {
+	     $("#"+errorId).html(data)
 	 }
  }
+ 

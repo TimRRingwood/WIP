@@ -22,7 +22,13 @@ line-height: 30px;
 
 .requiredField {
 	background-color:#d2dee2
+
 }
+
+td#errors a:link { color: #c10000; }
+td#errors	a:visited { color: #c10000; }
+td#errors	a:hover { color: #c10000; }
+td#errors	a:active { color: #c10000; }
 
 .requiredAsterisk {
     color: #e32;
@@ -71,11 +77,11 @@ td#leftBorder {
 }
 
 .errorField {
-	background-color: red
+	background-color: #ff2f2f;
 }
 
 .errorText {
-	color: red
+	color: #c10000;
 }
 
 div[class^='fieldError'] {

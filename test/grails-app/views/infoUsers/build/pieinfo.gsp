@@ -26,12 +26,13 @@
               dualTrigger();
               togglePOC();
               
+              // just taking an Java array as string and making into Javascript array.
                var validationFields = "${validationFields}".substr(1);
-					validationFields= validationFields.replace("]", ""); 
-					validationFields= validationFields.replace(/ /g, '');
-					$.each(validationFields.split(','), function(index, value) {
+				   validationFields= validationFields.replace("]", ""); 
+				   validationFields= validationFields.replace(/ /g, '');
+				   $.each(validationFields.split(','), function(index, value) {
 					    $("#" + value).addClass("validate");
-					 });
+				   });
 
                $(".validate").change(function(e) {
  				   textValidation(e);
@@ -40,7 +41,7 @@
 				$('[id^="fieldError"]').each(function (index, object) {
                      var id = object.id
                      var text = $("#"+id).html()
-                     var fn =  id.replace("fieldError", ""); 
+                     var fn =  id.replace("fieldError", "");   
                      addErrorToSelector(fn, text)
 				});
 				
@@ -76,7 +77,7 @@
           <tr>
              <td id="errors"><a>
                <g:each var="err" in="${errors}">
-                 <div id="fieldError${err.key}" class="errorText">${err.value}</div>
+                 <div id="fieldError${err.key}" class="errorText"><a href="#${err.key}">${err.value}</a></div>
                </g:each>
              </a></td>
           </tr>
@@ -136,7 +137,7 @@
         &nbsp; First<span class="requiredAsterisk"> **</span>
     </td>
     <td class="rowTitle">
-        <input class="requiredField" name="firstname" id="firstname" value="${info.firstname}"  size="50" type="text"/>
+        <input class="requiredField" name="firstname" id="firstname" label="First Name" value="${info.firstname}"  size="50" type="text"/>
     </td>
 </tr>
 <tr>
@@ -154,7 +155,7 @@
         &nbsp; Last<span class="requiredAsterisk"> **</span>
     </td>
     <td>
-           <input class="requiredField" name="lastname"  id="lastname" value="${info.lastname}"  size="50" type="text"/>
+           <input class="requiredField" name="lastname"  id="lastname" label="Last Name" value="${info.lastname}"  size="50" type="text"/>
     </td>
 </tr>
 <tr>
@@ -223,7 +224,7 @@
          <td class="rowTitle">
            Contract Expiration Date:
            <br/>
-           <input class="cal" name="conExp" id="alienExp" value="${info.conExp}" type="text"/>
+           <input class="cal2" name="conExp" id="conExp" value="${info.conExp}" type="text"/>
         </td>
        </tr>
 
@@ -278,7 +279,7 @@
     <td><span class="rowTitle">
        Government POC E-Mail</span><span class="requiredAsterisk"> **</span>
     <br/>
-        <input class="requiredField" name="pocEmail" value="${poc?.email}" size="50" type="text"/>
+        <input class="requiredField" name="pocEmail" id="pocEmail" value="${poc?.email}" size="50" type="text"/>
     </td>
 </tr>
         </table>
@@ -842,7 +843,7 @@
     <td>
         Alien Registration, Visa, or Passport Number: <span class="requiredAsterisk"> **</span>
      <br/>
-        <input class="requiredField" name="alienNumb" value="${info.alienNumb}"  type="text">
+        <input class="requiredField" name="alienNumb" id="alienNumb" value="${info.alienNumb}"  type="text">
 </td>
 <td class="rowTitle">
     
@@ -874,7 +875,7 @@
    <table class="mainTable"><tr><td>
         <span class="rowTitle">Primary</span><span class="requiredAsterisk"> **</span>
         <br/>
-         <input class="requiredField" name="phone" size="25" onchange="this.value=formatPhone(this.value, document.forms[0].country.options[document.forms[0].country.selectedIndex].value);" type="text"/>
+         <input class="requiredField" name="phone" id="phone" size="25" onchange="this.value=formatPhone(this.value, document.forms[0].country.options[document.forms[0].country.selectedIndex].value);" type="text"/>
     </td>
     <td> <span class="rowTitle">Ext</span><br/>
        
@@ -883,7 +884,7 @@
     <td>        
          <span class="rowTitle">Alternate</span>
     <br/>
-        <input name="phone2" size="25" onchange="this.value=formatPhone(this.value, document.forms[0].country.options[document.forms[0].country.selectedIndex].value);" type="text"/>
+        <input name="phone2" id="phone2" size="25" onchange="this.value=formatPhone(this.value, document.forms[0].country.options[document.forms[0].country.selectedIndex].value);" type="text"/>
         </td>
    
     <td>Ext<br/><input name="phone2Ext" maxlength="5" size="14" type="text">
@@ -896,7 +897,7 @@
     <td>
         
          <span class="rowTitle">Fax</span><br/>
-        <input name="fax" size="25" onchange="this.value=formatPhone(this.value, document.forms[0].country.options[document.forms[0].country.selectedIndex].value);" type="text">
+        <input name="fax" id="fax" size="25" onchange="this.value=formatPhone(this.value, document.forms[0].country.options[document.forms[0].country.selectedIndex].value);" type="text">
     </td>
 </tr>
 <tr>
@@ -932,7 +933,7 @@
     <td> <span class="rowTitle">
         Company/Organization </span><span class="requiredAsterisk">**</span>
         <br/>
-    <input class="requiredField" name="company" size="50" type="text" value="${info.company}" />
+    <input class="requiredField" name="company" id="company" label="Company" size="50" type="text" value="${info.company}" />
     </td>
     <td><span class="rowTitle">
         Office Symbol</span>
@@ -949,7 +950,7 @@
     <tr>
         <td colspan="2"><span class="rowTitle">HCPMP Org ID</span><span class="requiredAsterisk">**</span>(Click here to load more)
         <br/>
-      <select class="requiredField" id="orgID" name="orgID"><option selected="selected" value="">Select organization</option>
+      <select class="requiredField" id="orgID" name="orgID" label="HCPMP OrgId"><option selected="selected" value="">Select organization</option>
 <option value="ACOMA">ACOMA - Aviation Command at Moffett Field, CA</option>
 <option value="ACOML">ACOML - Aviation Command at Langley Research Center, VA</option>
 <option value="ACOMM">ACOMM - Army Material Command at Redstone Arsenal, AL</option>
@@ -1356,14 +1357,14 @@
         City
         </span><span class="requiredAsterisk"> **</span>
       <br/>
-        <input class="requiredField" name="city" size="50" type="text" value="${info.city}">
+        <input class="requiredField" name="city" id="city" label="City" size="50" type="text" value="${info.city}">
     </td> 
     <td>
       <span  class="rowTitle">     
         State</span><span class="requiredAsterisk"> **</span>
     <br/>
         <!--html:text property="state" size="50" /-->
-        <select class="requiredField" id="state" name="state"><option selected="selected" value="">n/a</option>
+        <select class="requiredField" id="state" label="State" name="state"><option selected="selected" value="">n/a</option>
 <option value="AA">AA</option>
 <option value="AE">AE</option>
 <option value="AK">AK</option>
@@ -1424,7 +1425,7 @@
     <span class="rowTitle">
         Zip </span>   <span class="requiredAsterisk"> **</span>
     <br/>
-        <input class="requiredField" name="zipcode" size="50" type="text">
+        <input class="requiredField" name="zipcode"  id="zipcode" size="50" type="text">
     </td>
 </tr>
 
@@ -1465,14 +1466,14 @@
         </tr>
         
         <tr>            <td><span class="rowTitle">         
-                Preferred Username</span> <span class="requiredAsterisk">**</span>
-                    <input class="requiredField" value="${info.preferredUsernames}" name="preferredUsernames" maxlength="8" size="15" type="text">
+                   Preferred Username</span> <span class="requiredAsterisk">**</span>
+                    <input class="requiredField" value="${info.preferredUsernames}" label="Preferred Username" name="preferredUsernames" id	="preferredUsernames" maxlength="8" size="15" type="text">
                     <input name="checkforpreferred" value="true" type="hidden">
              </td>
  <td><span class="rowTitle"> Preferred Shell</span> <span class="requiredAsterisk">**</span>
             </td>
             <td>
-                <select class="requiredField" name="preferredShell" id="preferredShell"><option selected="selected" value="csh">C Shell (csh)</option>
+                <select class="requiredField" name="preferredShell" label="Preferred Shell" id="preferredShell"><option selected="selected" value="csh">C Shell (csh)</option>
                     <option value="sh">Bourne (sh)</option>
                     <option value="ksh">Korn (ksh)</option>
                     <option value="tcsh">Extended C Shell (tcsh)</option>
