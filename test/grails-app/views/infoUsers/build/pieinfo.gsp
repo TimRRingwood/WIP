@@ -54,6 +54,7 @@
 <body>
     <div class="body">
         <h1>Portal to the Information Environment</h1>
+
         <g:if test="${message}">
             <div class="message">${message}</div>
         </g:if>
@@ -137,7 +138,7 @@
         &nbsp; First<span class="requiredAsterisk"> **</span>
     </td>
     <td class="rowTitle">
-        <input class="requiredField" name="firstname" id="firstname" label="First Name" value="${info.firstname}"  size="50" type="text"/>
+        <input class="requiredField" name="firstname" id="firstname" value="${info.firstname}"  size="50" type="text"/>
     </td>
 </tr>
 <tr>
@@ -155,7 +156,7 @@
         &nbsp; Last<span class="requiredAsterisk"> **</span>
     </td>
     <td>
-           <input class="requiredField" name="lastname"  id="lastname" label="Last Name" value="${info.lastname}"  size="50" type="text"/>
+           <input class="requiredField" name="lastname"  id="lastname"  value="${info.lastname}"  size="50" type="text"/>
     </td>
 </tr>
 <tr>
@@ -933,7 +934,7 @@
     <td> <span class="rowTitle">
         Company/Organization </span><span class="requiredAsterisk">**</span>
         <br/>
-    <input class="requiredField" name="company" id="company" label="Company" size="50" type="text" value="${info.company}" />
+    <input class="requiredField" name="company" id="company" size="50" type="text" value="${info.company}" />
     </td>
     <td><span class="rowTitle">
         Office Symbol</span>
@@ -950,7 +951,7 @@
     <tr>
         <td colspan="2"><span class="rowTitle">HCPMP Org ID</span><span class="requiredAsterisk">**</span>(Click here to load more)
         <br/>
-      <select class="requiredField" id="orgID" name="orgID" label="HCPMP OrgId"><option selected="selected" value="">Select organization</option>
+      <select class="requiredField" id="orgID" name="orgID" ><option selected="selected" value="">Select organization</option>
 <option value="ACOMA">ACOMA - Aviation Command at Moffett Field, CA</option>
 <option value="ACOML">ACOML - Aviation Command at Langley Research Center, VA</option>
 <option value="ACOMM">ACOMM - Army Material Command at Redstone Arsenal, AL</option>
@@ -1357,14 +1358,14 @@
         City
         </span><span class="requiredAsterisk"> **</span>
       <br/>
-        <input class="requiredField" name="city" id="city" label="City" size="50" type="text" value="${info.city}">
+        <input class="requiredField" name="city" id="city"  size="50" type="text" value="${info.city}">
     </td> 
     <td>
       <span  class="rowTitle">     
         State</span><span class="requiredAsterisk"> **</span>
     <br/>
         <!--html:text property="state" size="50" /-->
-        <select class="requiredField" id="state" label="State" name="state"><option selected="selected" value="">n/a</option>
+        <select class="requiredField" id="state" name="state"><option selected="selected" value="">n/a</option>
 <option value="AA">AA</option>
 <option value="AE">AE</option>
 <option value="AK">AK</option>
@@ -1467,13 +1468,13 @@
         
         <tr>            <td><span class="rowTitle">         
                    Preferred Username</span> <span class="requiredAsterisk">**</span>
-                    <input class="requiredField" value="${info.preferredUsernames}" label="Preferred Username" name="preferredUsernames" id	="preferredUsernames" maxlength="8" size="15" type="text">
+                    <input class="requiredField" value="${info.preferredUsernames}" name="preferredUsernames" id	="preferredUsernames" maxlength="8" size="15" type="text">
                     <input name="checkforpreferred" value="true" type="hidden">
              </td>
  <td><span class="rowTitle"> Preferred Shell</span> <span class="requiredAsterisk">**</span>
             </td>
             <td>
-                <select class="requiredField" name="preferredShell" label="Preferred Shell" id="preferredShell"><option selected="selected" value="csh">C Shell (csh)</option>
+                <select class="requiredField" name="preferredShell" id="preferredShell"><option selected="selected" value="csh">C Shell (csh)</option>
                     <option value="sh">Bourne (sh)</option>
                     <option value="ksh">Korn (ksh)</option>
                     <option value="tcsh">Extended C Shell (tcsh)</option>

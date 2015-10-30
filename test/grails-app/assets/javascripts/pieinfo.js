@@ -117,10 +117,9 @@ function togglePOC() {
      if (typeof label == 'undefined' ) { 
         label = fn;
      }
-     data = data.replace(/\[.*?\]/g, label); 
-     data = "<a href=\"#" + fn + "\">"+data+"</a>"
      $(selector).addClass("errorField");
      $(selector).attr('title', data);
+     data = "<a href=\"#" + fn + "\">"+data+"</a>"
      var errorId = "fieldError"+ fn;
      var obj = $("#" + errorId)[0];
      if (typeof obj == 'undefined' ) {
