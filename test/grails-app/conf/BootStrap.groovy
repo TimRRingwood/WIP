@@ -10,7 +10,6 @@ class BootStrap {
 	def LoginService loginService 
 	def init = {
 		
-		      println "LS: " + loginService
 		      def adminRole = Role.findByAuthority('ROLE_ADMIN');
 			  if (adminRole == null) {
 				  adminRole = new Role('ROLE_ADMIN').save()
@@ -19,7 +18,11 @@ class BootStrap {
 
 			  def adminUser = LoginInfo.findByUsername('admin');
 			  if  (adminUser == null) {
-				  adminUser = loginService.createNewUser('', 'pwd');
+				  adminUser = loginService.createNewUser('admin', 'pwd');
+				  def iu = adminUser.infoUsers
+				  iu.firstname = 'Super'
+				  iu.lastname = "User"
+				  iu.save(flush: true)
 				  //adminUser = new LoginInfo('su', 'pwd').save()
 				  LoginInfoRole ur = new LoginInfoRole(adminUser, adminRole);
 				  ur.save(flush: true)

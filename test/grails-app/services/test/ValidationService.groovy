@@ -10,7 +10,7 @@ class ValidationService {
 	
 	static List allFields = Arrays.asList("firstname", "lastname", "email", "immigrantAlien", "alienNumb", "alienExp", "phone",
 		   "email2", "phone2", "city", "state", "zipcode", "company", "orgID", "preferredUsernames", "preferredShell", "pocFirstname", "pocLastname", "pocEmail");
-	static def emailPattern = /[_A-Za-z0-9-]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(.[A-Za-z]{2,})/
+	static def emailPattern = /[_A-Za-z0-9-]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})/
 	static def phonePattern = /\d{3}-\d{3}-\d{4}/
 	static def zipcodePattern = /^\d{5}(?:[-\s]\d{4})?$/
 	static GrailsApplication grailsApplication
